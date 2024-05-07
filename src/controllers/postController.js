@@ -11,11 +11,10 @@ export const getLastPosts = async(req,res)=> {
 
 export const createPost = async(req,res)=> {
 
-     const {player_id,title,description,date,category} =req.body;
+     const {file, title, description, date, category} =req.body;
     try {
         const newPost = new postModel({
-            // player_id : player_id,
-            file: req.file.filename,
+            file: file,
             title: title,
             description: description,
             date: date,
