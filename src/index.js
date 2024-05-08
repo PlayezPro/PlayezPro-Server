@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js'
 import pkg from '../package.json' assert { type: 'json' }
 import postsRoutes from '../src/routes/postRoutes.js'
 import skillRoutes from '../src/routes/skillRoutes.js'
+import statisticsRoutes from '../src/routes/statisticsRoutes.js'
 
 const app = express()
 createRoles()
@@ -15,7 +16,7 @@ app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/posts', postsRoutes)
 app.use('/skill', skillRoutes)
-
+app.use('/statistics', statisticsRoutes)
 
 app.get('/', (req, res) => {
     res.json({
