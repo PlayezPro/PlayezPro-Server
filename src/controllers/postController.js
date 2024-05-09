@@ -2,7 +2,7 @@ import postModel from "../models/post.js";
 import config from "../firebase/firebase.js"
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { memory } from "../middelware/uploadMedia.js";
+import { memory } from "../middlewares/uploadMedia.js";
 
 
 
