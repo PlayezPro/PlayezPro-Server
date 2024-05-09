@@ -1,6 +1,6 @@
 import { Users } from "../models/user.js";
 
-// metodos para el CRUD
+// Metodos para el CRUD
 
 //Mostrar todos los registros
 

@@ -1,12 +1,13 @@
 import express from "express";
 import { db } from '../src/db/db.js';
-import { createRoles } from "./libs/initialSeptus.js";
+import { createRoles } from "./libs/initialSetUp.js";
 import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import pkg from '../package.json' assert { type: 'json' }
 import postsRoutes from '../src/routes/postRoutes.js'
 import skillRoutes from '../src/routes/skillRoutes.js'
 import statisticsRoutes from '../src/routes/statisticsRoutes.js'
+import detailRoutes from "../src/routes/detailRoutes.js"
 
 const app = express()
 createRoles()
@@ -16,7 +17,8 @@ app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/posts', postsRoutes)
 app.use('/skill', skillRoutes)
-app.use('/statistics', statisticsRoutes)
+app.use('/statistics', statisticsRoutes)app.use('/details', detailRoutes)
+
 
 app.get('/', (req, res) => {
     res.json({
