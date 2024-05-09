@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Tamos Activos vv",
+  "description": "Pedro Pedro Pedro pe",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
     "start": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "Somos muchos",
+  "author": "Pedros y Monos",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

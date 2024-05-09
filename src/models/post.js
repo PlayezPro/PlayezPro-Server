@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const postSchema = new mongoose.Schema({
+      player_id : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+    },
     file: String,
     title: String,
     description: String,

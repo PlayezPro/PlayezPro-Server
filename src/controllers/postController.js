@@ -16,9 +16,9 @@ export const createPost = async(req,res)=> {
     try {
         const newPost = new postModel({
             file: file,
-            title: title,
+            // title: title,
             description: description,
-            date: date,
+            // date: date,
             category: category,
         })
 
