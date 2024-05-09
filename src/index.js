@@ -6,6 +6,7 @@ import authRoutes from './routes/authRoutes.js'
 import pkg from '../package.json' assert { type: 'json' }
 import postsRoutes from '../src/routes/postRoutes.js'
 import likesRouter from '../src/routes/likesRoutes.js'
+import shareRouter from '../src/routes/shareRoutes.js'
 
 const app = express()
 createRoles()
@@ -15,6 +16,7 @@ app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/posts', postsRoutes)
 app.use('/likes', likesRouter)
+app.use('/share', shareRouter);
 
 
 app.get('/', (req, res) => {

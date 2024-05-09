@@ -11,7 +11,7 @@ export const getLastPosts = async(req,res)=> {
 
 export const createPost = async(req,res)=> {
 
-     const {player_id,title,description,date,category} =req.body;
+    const {player_id,title,description,date,category} =req.body;
     try {
         const newPost = new postModel({
             // player_id : player_id,
@@ -27,6 +27,6 @@ export const createPost = async(req,res)=> {
 
         }catch (error) {
 
-         return res.status(500).json({message : 'Error al crear el post'});
+        return res.status(500).json({message : 'Error al crear el post'});
         }
 }
