@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const likesSchema = new Schema({
+const shareSchema = new Schema({
     posts_id: {
         type: Schema.Types.ObjectId,
         ref: 'posts'
@@ -13,5 +13,5 @@ const likesSchema = new Schema({
     }
 });
 
-const likesModel = mongoose.model('likes', likesSchema);
-export default likesModel;
+const shareModel = mongoose.model('share', shareSchema);
+export default shareModel;

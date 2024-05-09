@@ -8,6 +8,7 @@ import postsRoutes from '../src/routes/postRoutes.js'
 import skillRoutes from '../src/routes/skillRoutes.js'
 import statisticsRoutes from '../src/routes/statisticsRoutes.js'
 import detailRoutes from "../src/routes/detailRoutes.js"
+import shareRouter from '../src/routes/shareRoutes.js'
 
 const app = express()
 createRoles()
@@ -19,6 +20,7 @@ app.use('/posts', postsRoutes)
 app.use('/skill', skillRoutes)
 app.use('/statistics', statisticsRoutes)
 app.use('/details', detailRoutes)
+app.use('/share', shareRouter);
 
 
 app.get('/', (req, res) => {
