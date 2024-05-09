@@ -1,8 +1,11 @@
 import { Users } from "../models/user.js";
 import Jwt from "jsonwebtoken";
 import { Roles } from '../models/roles.js';
+import dotenv from 'dotenv'
 
-const SECRET = 'logeandote';
+dotenv.config();
+
+const SECRET = process.env.JWT_SECRET;
 
 export const singUp = async (req, res) => {
     const { name, lastName, userName, email, phoneNumber, password, roles } = req.body;
@@ -36,7 +39,7 @@ export const singUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
     try {
-        const userFound = await Users.findOne({ userName: req.body.userName });
+        const userFound = await Users.findOne({ userName: req.body.userName }, SECRET, { expiresIn: 86400 });
 
         if (!userFound) return res.status(400).json({ message: "User not found" });
 
@@ -50,7 +53,7 @@ export const signIn = async (req, res) => {
         // Generar el token
         const token = Jwt.sign({ id: userFound._id }, SECRET, { expiresIn: 86400 }); 
 
-        res.header("access", token); // Corregido el método para establecer el encabezado
+        res.header("access", token); 
 
         // Devolver el token y los roles en la respuesta
         res.json({ token, roles });
