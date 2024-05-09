@@ -56,3 +56,50 @@ export const createPost = async(req,res)=> {
     }
 
 }
+
+export const deletePost = async ( req,res) => {
+    const id = req.params.id
+    try {
+        await postModel.deleteOne({_id:id})
+        res.status(204).json({message: "Post eliminado ",id})
+    } catch (error) {
+        res.status(500).json({message: "Fallo al eliminar el post", error})
+    }
+}
+
+export const getPostId = async (req,res) => {
+    const id = req.params.id
+    try {
+       const onePost= await postModel.findOne({_id:id});
+       res.status(200).json(onePost)
+    } catch (error) {
+        res.status(500).json({message: "error al mostrar el post",error})
+    }
+}
+
+export const showUserPosts = async (req, res) => {
+    const usersId = req.params.users_id;
+    console.log(usersId)
+    try {
+       const userPosts= await postModel.find({users_id : usersId});
+       res.status(200).json(userPosts)
+    } catch (error) {
+     res.status(500).json(error)
+    }
+}
+
+export const editBlog = async (req, res) => {
+    const postId = req.params.id;
+    const {title,description,category} = req.body
+    try {
+        await postModel.updateOne( 
+            { _id: postId }, 
+            { $set: { title, description, category } }
+        );
+        res.status(200).json({message:"datos Modificado Satisfactoriamente", postId})
+
+    } catch (error) {
+        console.error('Error al actualizar el blog', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
