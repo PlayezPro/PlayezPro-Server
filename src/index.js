@@ -17,7 +17,8 @@ app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
 app.use('/posts', postsRoutes)
 app.use('/skill', skillRoutes)
-app.use('/statistics', statisticsRoutes)app.use('/details', detailRoutes)
+app.use('/statistics', statisticsRoutes)
+app.use('/details', detailRoutes)
 
 
 app.get('/', (req, res) => {
