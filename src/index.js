@@ -9,9 +9,11 @@ import skillRoutes from '../src/routes/skillRoutes.js'
 import statisticsRoutes from '../src/routes/statisticsRoutes.js'
 import detailRoutes from "../src/routes/detailRoutes.js"
 import shareRouter from '../src/routes/shareRoutes.js'
+import cors from 'cors'
 
 const app = express()
 createRoles()
+app.use(cors())
 app.use(express.json())
 app.set('pkg', pkg)
 app.use('/user', userRoutes)
