@@ -10,11 +10,13 @@ import statisticsRoutes from '../src/routes/statisticsRoutes.js'
 import detailRoutes from "../src/routes/detailRoutes.js"
 import shareRouter from '../src/routes/shareRoutes.js'
 import cors from 'cors'
+import commentRouter from "../src/routes/commentRoutes.js";
 
 const app = express()
 createRoles()
 app.use(cors())
 app.use(express.json())
+app.use(express.urlencoded({ extended: true })); 
 app.set('pkg', pkg)
 app.use('/user', userRoutes)
 app.use('/auth', authRoutes)
@@ -23,6 +25,7 @@ app.use('/skill', skillRoutes)
 app.use('/statistics', statisticsRoutes)
 app.use('/details', detailRoutes)
 app.use('/share', shareRouter);
+app.use('/comment', commentRouter)
 
 
 app.get('/', (req, res) => {

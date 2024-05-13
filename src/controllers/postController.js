@@ -22,7 +22,7 @@ export const createPost = async(req,res)=> {
 
     
     try {
-
+        console.log('Body de la solicitud:', req.body);
         await memory.single('file')(req,res, async (err)=> {
             if(err){
                 console.error('Error al cargar el archivo en memoria:', err);
