@@ -10,6 +10,7 @@ import statisticsRoutes from '../src/routes/statisticsRoutes.js'
 import detailRoutes from "../src/routes/detailRoutes.js"
 import shareRouter from '../src/routes/shareRoutes.js'
 import commentRouter from "../src/routes/commentRoutes.js";
+import likeRouter from "./routes/likesRoutes.js";
 import cors from 'cors'
 
 
@@ -27,7 +28,8 @@ app.use('/skill', skillRoutes)
 app.use('/statistics', statisticsRoutes)
 app.use('/details', detailRoutes)
 app.use('/share', shareRouter);
-app.use('/comment', commentRouter)
+app.use('/comment', commentRouter);
+app.use('/likes',likeRouter)
 
 
 app.get('/', (req, res) => {

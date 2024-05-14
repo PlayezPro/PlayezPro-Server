@@ -1,5 +1,5 @@
 import express from "express";
-import { createLike, removeLike } from "../controllers/likesController.js";
+import { createLike, removeLike ,checkIsLiked} from "../controllers/likesController.js";
 
 const likeRouter = express.Router();
 
@@ -8,5 +8,6 @@ likeRouter.post('/', createLike);
 
 // Ruta para eliminar un like
 likeRouter.delete('/', removeLike);
+likeRouter.post('/likecheck', checkIsLiked);
 
 export default likeRouter;

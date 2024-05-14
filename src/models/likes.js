@@ -10,6 +10,11 @@ const likesSchema = new Schema({
     users_id: {
         type: Schema.Types.ObjectId,
         ref: 'users'
+    },
+
+    isLiked: {
+        type: Boolean,
+        default: false // O false, dependiendo de si deseas que el valor predeterminado sea "me gusta" o "no me gusta"
     }
 });
 
