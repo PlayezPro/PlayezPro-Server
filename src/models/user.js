@@ -8,6 +8,7 @@ const UserSchema = mongoose.Schema({
     email: { type: String, unique: true },
     phoneNumber: {type: Number, unique: true},
     password: { type: String, required: true },
+    repeatPassword: { type: String, required: true },
     roles: [{ref: 'roles', type: Schema.Types.ObjectId}]
 },{
     timestamps : true,
