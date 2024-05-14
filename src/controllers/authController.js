@@ -39,7 +39,7 @@ export const singUp = async (req, res) => {
 
 export const signIn = async (req, res) => {
     try {
-        const userFound = await Users.findOne({ userName: req.body.userName }, SECRET, { expiresIn: 86400 });
+        const userFound = await Users.findOne({ email: req.body.email });
 
         if (!userFound) return res.status(400).json({ message: "User not found" });
 
