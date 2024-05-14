@@ -8,7 +8,7 @@ dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
 export const singUp = async (req, res) => {
-    const { name, lastName, userName, email, phoneNumber, password, roles } = req.body;
+    const { name, lastName, userName, email, phoneNumber, password, repeatPassword, roles } = req.body;
 
     const hashedPassword = await Users.encryptPassword(password);
 
@@ -19,6 +19,8 @@ export const singUp = async (req, res) => {
         email,
         phoneNumber,
         password: hashedPassword,
+        repeatPassword,
+
     });
 
     if (roles) {
