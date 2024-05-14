@@ -19,6 +19,8 @@ export const createLike = async (req, res) => {
 
         // Incrementar el contador de likes en el post
         await PostModel.findByIdAndUpdate(posts_id, { $inc: { likesCount: 1 } });
+        newLike.isLiked = true;
+        await newLike.save();
 
         return res.status(200).json({ message: 'Like añadido correctamente', newLike });
     } catch (error) {
@@ -42,6 +44,27 @@ export const removeLike = async (req, res) => {
         return res.status(200).json({ message: 'Like eliminado correctamente' });
     } catch (error) {
         console.error('Error al eliminar el like:', error);
+        return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
+    }
+};
+
+export const checkIsLiked = async (req, res) => {
+    const { posts_id, users_id } = req.body;
+    try {
+        // Buscar el like correspondiente
+        const like = await likesModels.findOne({ posts_id: posts_id, users_id: users_id });
+        if (!like) {
+            // Si no se encuentra el like, el usuario no ha dado like a este post
+            return res.status(200).json({ isLiked: false });
+        }
+        // Si se encuentra el like, verificar si isLiked es true
+        if (like.isLiked) {
+            return res.status(200).json({ isLiked: true });
+        } else {
+            return res.status(200).json({ isLiked: false });
+        }
+    } catch (error) {
+        console.error('Error al verificar isLiked:', error);
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };

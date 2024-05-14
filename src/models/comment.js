@@ -11,7 +11,7 @@ const commentsSchema = new Schema({
         ref: 'users',
         required: true
     },
-    comments: String
+    comments: {type: String, required:true},
 })
 
 const commentsModel = mongoose.model('comments', commentsSchema);

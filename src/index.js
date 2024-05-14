@@ -11,6 +11,9 @@ import detailRoutes from "../src/routes/detailRoutes.js"
 import shareRouter from '../src/routes/shareRoutes.js'
 import cors from 'cors'
 import commentRouter from "../src/routes/commentRoutes.js";
+import likeRouter from "./routes/likesRoutes.js";
+
+
 
 const app = express()
 createRoles()
@@ -25,7 +28,8 @@ app.use('/skill', skillRoutes)
 app.use('/statistics', statisticsRoutes)
 app.use('/details', detailRoutes)
 app.use('/share', shareRouter);
-app.use('/comment', commentRouter)
+app.use('/comment', commentRouter);
+app.use('/likes',likeRouter)
 
 
 app.get('/', (req, res) => {
