@@ -19,7 +19,7 @@ export const singUp = async (req, res) => {
         email,
         phoneNumber,
         password: hashedPassword,
-        repeatPassword,
+        repeatPassword:  hashedPassword,
     });
 
     if (roles) {
