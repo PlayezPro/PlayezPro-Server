@@ -68,3 +68,22 @@ export const checkIsLiked = async (req, res) => {
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };
+
+export const totalLikes = async (req, res) => {
+    try {
+        const postId = req.params.posts_id;
+        const totalLikes = await likesModels.countDocuments({ posts_id: postId, isLiked: true });
+
+        if (totalLikes > 0) {
+            // Se encontraron documentos con isLiked=true para el posts_id especificado
+            res.status(200).json({ totalLikes });
+        } else {
+            // No se encontraron documentos con isLiked=true para el posts_id especificado
+            res.status(200).json({ totalLikes: 0 });
+        }
+    } catch (error) {
+        console.error("Error al contar los likes:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+};
+
