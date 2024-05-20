@@ -12,6 +12,7 @@ import shareRouter from '../src/routes/shareRoutes.js'
 import cors from 'cors'
 import commentRouter from "../src/routes/commentRoutes.js";
 import likeRouter from "./routes/likesRoutes.js";
+import followRouter from "./routes/followRoutes.js";
 
 
 
@@ -30,6 +31,7 @@ app.use('/details', detailRoutes)
 app.use('/share', shareRouter);
 app.use('/comment', commentRouter);
 app.use('/likes',likeRouter)
+app.use('/follow', followRouter)
 
 
 app.get('/', (req, res) => {
