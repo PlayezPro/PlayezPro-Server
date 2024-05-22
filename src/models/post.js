@@ -18,6 +18,7 @@ const postSchema = new mongoose.Schema({
     title: String,
     description: String,
     category: String ,
+    likesCount: { type: Number, default: 0 }, // Campo para contar los likes
     Created_At: { type: String, default: dateTime }
 }
 

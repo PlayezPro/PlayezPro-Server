@@ -5,8 +5,6 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { memory } from "../middlewares/uploadMedia.js";
 
 
-
-
 export const getLastPosts = async(req,res)=> {
     try {
         const lastPost = await postModel.find()
@@ -101,5 +99,14 @@ export const editBlog = async (req, res) => {
     } catch (error) {
         console.error('Error al actualizar el blog', error);
         res.status(500).json({ error: 'Error interno del servidor' });
+    }
+};
+
+export const getRankedPosts = async (req, res) => {
+    try {
+        const rankedPosts = await postModel.find().sort({ likesCount: -1 }).exec();
+        res.status(200).json(rankedPosts);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching ranked posts', error });
     }
 };
