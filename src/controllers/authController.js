@@ -52,7 +52,7 @@ export const signIn = async (req, res) => {
         const roles = userFound.roles;
 
         // Generar el token
-        const token = Jwt.sign({ id: userFound._id }, SECRET, { expiresIn: 86400 }); 
+        const token = Jwt.sign({ id: userFound._id, roles:userFound.roles }, SECRET, { expiresIn: 86400 }); 
 
         res.header("access", token); 
 
