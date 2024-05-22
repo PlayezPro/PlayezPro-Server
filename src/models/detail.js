@@ -4,7 +4,7 @@ const detailUserSchema = mongoose.Schema({
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
-        // required: true,
+        required: true,
     },
     photo:{type: String},
     birthYear:{type: Number, required: true},
