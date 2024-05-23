@@ -52,7 +52,6 @@ export const createPost = async(req,res)=> {
         console.error('Error al crear el post:', error);
         return res.status(500).json({ message: 'Error al crear el post' });
     }
-
 }
 
 export const deletePost = async ( req,res) => {
@@ -93,7 +92,7 @@ export const editBlog = async (req, res) => {
         await postModel.updateOne( 
             { _id: postId }, 
             { $set: { title, description, category } }
-        );
+            );
         res.status(200).json({message:"datos Modificado Satisfactoriamente", postId})
 
     } catch (error) {
@@ -102,9 +101,28 @@ export const editBlog = async (req, res) => {
     }
 };
 
+//Ordered by likes, ranking 
 export const getRankedPosts = async (req, res) => {
     try {
-        const rankedPosts = await postModel.find().sort({ likesCount: -1 }).exec();
+        const rankedPosts = await postModel.aggregate([
+            {
+                $lookup: {
+                    from: 'likes',
+                    localField: '_id',
+                    foreignField: 'post_id',
+                    as: 'likes'
+                }
+            },
+            {
+                $addFields: {
+                    totalLikes: { $size: '$likes' }
+                }
+            },
+            {
+                $sort: { totalLikes: -1 }
+            }
+        ]);
+
         res.status(200).json(rankedPosts);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching ranked posts', error });

@@ -1,5 +1,5 @@
 import express from "express";
-import { createLike, removeLike ,checkIsLiked, totalLikes, getPostRanking} from "../controllers/likesController.js";
+import { createLike, removeLike ,checkIsLiked, totalLikes} from "../controllers/likesController.js";
 
 const likeRouter = express.Router();
 
@@ -12,6 +12,6 @@ likeRouter.post('/likecheck', checkIsLiked);
 likeRouter.get('/totallikes/:posts_id', totalLikes)
 
 // Ruta para obtener el ranking de posts por likes
-likeRouter.get('/rankedLikes', getPostRanking);
+// router.get('/orderedbylikes', getRankedPosts);
 
 export default likeRouter;
