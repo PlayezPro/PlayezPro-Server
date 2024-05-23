@@ -1,14 +1,16 @@
 import  Skill  from "../models/skills.js";
 
 export const createSkill = async (req, res) =>{
-    const {attack, defense, dribble, speed, force} = req.body
+    const {users_id,pace, shot, dribble, pas, defense,physical} = req.body
     try {
         const skill = new Skill ({
-            attack: attack,
+            users_id:users_id,
+            pace:pace,
+            shot:shot,
             defense: defense,
             dribble: dribble,
-            speed: speed,
-            force: force
+            pas:pas,
+            physical:physical,
         })
         await skill.save()
         res.status(201).json({message:"Skill Registered", skill})
@@ -27,9 +29,9 @@ export const getSkill = async (req, res) => {
 }
 
 export const getOneSkill = async (req, res) => {
-    const id = req.params.id
+    const id = req.params.users_id
     try {
-        const skill = await Skill.find({_id:id})
+        const skill = await Skill.find({users_id:id})
         res.status(200).json(skill)
     } catch (error) {
         res.status(500).json({message:"not found", error})
