@@ -1,9 +1,10 @@
 import  Skill  from "../models/skills.js";
 
 export const createSkill = async (req, res) =>{
-    const {attack, defense, dribble, speed, force} = req.body
+    const {details_id, attack, defense, dribble, speed, force} = req.body
     try {
         const skill = new Skill ({
+            details_id: details_id,
             attack: attack,
             defense: defense,
             dribble: dribble,

@@ -41,27 +41,16 @@ const deleteDetails = async (req, res) => {
 
 export { createDetails, getAllDetails, updateDetails, deleteDetails };
 
+const getDetailById = async (req, res) => {
+    try {
+        const detail = await DetailUser.findById(req.params.id);
+        if (!detail) {
+            return res.status(404).send("Detalle no encontrado");
+        }
+        res.status(200).send(detail);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+};
 
-
-// export const DetailUser = async (req, res) =>{
-//     const { id, userId, photo, birthYear, nationality, currentTeam, dorsal, favPosition, mainFoot, weight, height} = req.body
-//     try {
-//         const detail = new DetailUser ({
-//             id: id,
-//             userId: userId,
-//             photo: photo,
-//             birthYear: birthYear,
-//             nationality: nationality,
-//             currentTeam:currentTeam,
-//             dorsal:dorsal,
-//             favPosition:favPosition,
-//             mainFoot: mainFoot,
-//             weight: weight,
-//             height: height,
-//         })
-//         await detail.save()
-//         res.status(201).json({message: "Details added", DetailUser})
-//     } catch (error) {
-//         res.status(500).json({message: "No se añaden detalles", error})
-//     }
-// }
+export { getDetailById };
