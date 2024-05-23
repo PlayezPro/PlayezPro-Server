@@ -1,15 +1,16 @@
 import mongoose from "mongoose";
 
 const skillSchema = new mongoose.Schema({
-    details_id: {
+    users_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'details'
+        ref: 'users'
     },
-    attack: Number,
-    defense: Number,
+    pace: Number,
+    shot:Number,
+    pas:Number,
     dribble: Number,
-    speed: Number,
-    force: Number
+    defense: Number,    
+    physical:Number,
 })
 
 const Skill = mongoose.model('Skills', skillSchema);

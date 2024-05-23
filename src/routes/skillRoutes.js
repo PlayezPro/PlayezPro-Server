@@ -5,7 +5,7 @@ const router = Router()
 
 router.post('/', createSkill)
 router.get('/', getSkill)
-router.get('/:id', getOneSkill)
+router.get('/:users_id', getOneSkill)
 router.put('/:id', updateSkill)
 router.delete('/:id', deleteSkill)
 
