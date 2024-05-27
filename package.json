@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Pedro Pedro Pedro pe",
+  "description": "Backend",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
     "start": "nodemon src/index.js"
   },
   "keywords": [],
-  "author": "Pedros y Monos",
+  "author": "Playez Team",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
