@@ -5,6 +5,8 @@ const allowedOrigins = [
     'http://localhost:4200',
     'https://playezpro-client.netlify.app/',
     'https://playezpro-server.onrender.com',
+    'https://playezpro-server.onrender.com/auth',
+
 ];
 
 const corsOptions = {
