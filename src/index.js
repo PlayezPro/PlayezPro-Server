@@ -13,7 +13,7 @@ import cors from 'cors'
 import commentRouter from "../src/routes/commentRoutes.js";
 import likeRouter from "./routes/likesRoutes.js";
 import followRouter from "./routes/followRoutes.js";
-import corsMiddleware from './middlewares/corsMiddleware.js';
+import corsMiddleware from "./middlewares/corsMiddleware.js";
 
 
 const app = express()
