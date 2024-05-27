@@ -6,6 +6,8 @@ const allowedOrigins = [
     'https://playezpro-client.netlify.app/',
     'https://playezpro-server.onrender.com',
     'https://playezpro-server.onrender.com/auth',
+    'https://playezpro-server.onrender.com/auth/signup',
+    'https://playezpro-server.onrender.com/auth/signin',
 
 ];
 
