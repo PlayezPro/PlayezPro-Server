@@ -13,12 +13,13 @@ import cors from 'cors'
 import commentRouter from "../src/routes/commentRoutes.js";
 import likeRouter from "./routes/likesRoutes.js";
 import followRouter from "./routes/followRoutes.js";
-
+// import corsMiddleware from "./middlewares/corsMiddleware.js";
 
 
 const app = express()
 createRoles()
 app.use(cors())
+// app.use(corsMiddleware)
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })); 
 app.set('pkg', pkg)
