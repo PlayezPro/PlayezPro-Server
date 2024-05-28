@@ -59,9 +59,9 @@ export const updateUser = async (req, res) => {
         }
 
         // Verificar si las contraseñas coinciden
-        if (password !== repeatPassword) {
-            return res.status(400).json({ message: "Passwords do not match" });
-        }
+        // if (password !== repeatPassword) {
+        //     return res.status(400).json({ message: "Passwords do not match" });
+        // }
 
         // Construir el objeto de datos actualizados del usuario
         const updatedUserData = {
