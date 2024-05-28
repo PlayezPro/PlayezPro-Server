@@ -42,14 +42,25 @@ export const createUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
     const id = req.params.id;
-    const { name, lastName, userName, email, password, roles } = req.body;
+    const { name, lastName, userName, email, phoneNumber, password, repeatPassword, roles } = req.body;
 
     try {
         let hashedPassword;
+        let hashedRepeatPassword;
 
         // Si se proporciona un nuevo password, hashearlo
         if (password) {
             hashedPassword = await Users.encryptPassword(password);
+        }
+
+        // Si se proporciona un nuevo repeatPassword, hashearlo
+        if (repeatPassword) {
+            hashedRepeatPassword = await Users.encryptPassword(repeatPassword);
+        }
+
+        // Verificar si las contraseñas coinciden
+        if (password !== repeatPassword) {
+            return res.status(400).json({ message: "Passwords do not match" });
         }
 
         // Construir el objeto de datos actualizados del usuario
@@ -58,8 +69,10 @@ export const updateUser = async (req, res) => {
             lastName,
             userName,
             email,
+            phoneNumber,
             // Si hay un nuevo password, almacenar el hash; de lo contrario, mantener el existente
             password: hashedPassword || undefined,
+            repeatPassword: hashedRepeatPassword || undefined,
         };
 
         // Actualizar el usuario en la base de datos
@@ -70,6 +83,7 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error", error });
     }
 };
+
 
 
 //Eliminar un registro
