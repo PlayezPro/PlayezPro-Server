@@ -3,6 +3,10 @@ import config from "../firebase/firebase.js"
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { memory } from "../middlewares/uploadMedia.js";
+import * as Handbrake from 'handbrake-js';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
 
 
 export const getLastPosts = async(req,res)=> {
@@ -16,44 +20,99 @@ export const getLastPosts = async(req,res)=> {
 
 initializeApp(config.firebaseConfig);
 const storage = getStorage();
-export const createPost = async(req,res)=> {
 
-    
+// export const createPost = async(req,res)=> {
+//     try {
+//         await memory.single('file')(req,res, async (err)=> {
+//             if(err){
+//                 console.error('Error al cargar el archivo en memoria:', err);
+//                 return res.status(500).json({ message: 'Error al cargar el archivo en memoria' });
+//             }
+
+//             const fileBuffer = req.file.buffer;
+//             console.log(req.file);
+            
+
+//             const tempFileRef = ref(storage,  `media/${req.file.originalname}`);
+
+//             await uploadBytes(tempFileRef,fileBuffer)
+
+//             const tempFileDownloadUrl = await getDownloadURL(tempFileRef);
+
+//             const {users_id,title,description,date,category} =req.body;
+//             const newPost = new postModel({
+//                 users_id: users_id,
+//                 file: tempFileDownloadUrl, // Guardar la URL del archivo temporal en la base de datos
+//                 title: title,
+//                 description: description,
+//                 category: category,
+//             }); 
+
+//             await newPost.save();
+//             return res.status(200).json({ message: 'Post creado correctamente', newPost });
+//         })
+//     } catch(error) {
+//         console.error('Error al crear el post:', error);
+//         return res.status(500).json({ message: 'Error al crear el post' });
+//     }
+// }
+export const createPost = async (req, res) => {
     try {
-        console.log('Body de la solicitud:', req.body);
-        await memory.single('file')(req,res, async (err)=> {
-            if(err){
+        await memory.single('file')(req, res, async (err) => {
+            if (err) {
                 console.error('Error al cargar el archivo en memoria:', err);
                 return res.status(500).json({ message: 'Error al cargar el archivo en memoria' });
             }
 
             const fileBuffer = req.file.buffer;
-            
 
-            const tempFileRef = ref(storage,  `media/${req.file.originalname}`);
+            // Escribir el buffer en un archivo temporal
+            const tempFilePath = path.join(os.tmpdir(), req.file.originalname);
+            fs.writeFileSync(tempFilePath, fileBuffer);
 
-            await uploadBytes(tempFileRef,fileBuffer)
+            // Redimensionar el video utilizando HandBrake
+            const outputFilePath = path.join(os.tmpdir(), `resized_${req.file.originalname}`);
+            const handbrakeOptions = {
+                input: tempFilePath,
+                output: outputFilePath,
+                optimize: '0',
+                width: 640,
+                height: 480,
+            };
 
-            const tempFileDownloadUrl = await getDownloadURL(tempFileRef);
+            Handbrake.run(handbrakeOptions)
+                .then(async () => {
+                    // Subir el video redimensionado a Firebase Storage
+                    const tempFileRef = ref(storage, `media/${req.file.originalname}`);
+                    const tempFileBuffer = fs.readFileSync(outputFilePath);
+                    await uploadBytes(tempFileRef, tempFileBuffer);
 
-            const {users_id,title,description,date,category} =req.body;
-            const newPost = new postModel({
-                users_id: users_id,
-                file: tempFileDownloadUrl, // Guardar la URL del archivo temporal en la base de datos
-                title: title,
-                description: description,
-                category: category,
-            }); 
+                    const tempFileDownloadUrl = await getDownloadURL(tempFileRef);
 
-            await newPost.save();
-            return res.status(200).json({ message: 'Post creado correctamente', newPost });
-        })
-    } catch(error) {
+                    const { users_id, title, description, date, category } = req.body;
+                    const newPost = new postModel({
+                        users_id: users_id,
+                        file: tempFileDownloadUrl, // Guardar la URL del archivo temporal en la base de datos
+                        title: title,
+                        description: description,
+                        category: category,
+                    });
+
+                    await newPost.save();
+                    fs.unlinkSync(tempFilePath); // Eliminar el archivo temporal de entrada
+                    fs.unlinkSync(outputFilePath); // Eliminar el archivo temporal de salida
+                    return res.status(200).json({ message: 'Post creado correctamente', newPost });
+                })
+                .catch((err) => {
+                    console.error('Error al redimensionar el video:', err);
+                    return res.status(500).json({ message: 'Error al redimensionar el video' });
+                });
+        });
+    } catch (error) {
         console.error('Error al crear el post:', error);
         return res.status(500).json({ message: 'Error al crear el post' });
     }
-}
-
+};
 export const deletePost = async ( req,res) => {
     const id = req.params.id
     try {
@@ -75,15 +134,16 @@ export const getPostId = async (req,res) => {
 }
 
 export const showUserPosts = async (req, res) => {
+    console.log("Controlador showUserPosts ejecutado");
     const usersId = req.params.users_id;
-    console.log(usersId)
+    console.log(usersId);
     try {
        const userPosts= await postModel.find({users_id : usersId});
-       res.status(200).json(userPosts)
+       res.status(200).json(userPosts);
     } catch (error) {
-     res.status(500).json(error)
+     res.status(500).json(error);
     }
-}
+};
 
 export const editBlog = async (req, res) => {
     const postId = req.params.id;
