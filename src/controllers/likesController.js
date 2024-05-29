@@ -1,5 +1,4 @@
 import likesModels from "../models/likes.js";
-import postModel from "../models/post.js";
 
 export const createLike = async (req, res) => {
     const { posts_id, users_id } = req.body;
@@ -57,7 +56,7 @@ export const checkIsLiked = async (req, res) => {
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };
-ng
+
 export const totalLikes = async (req, res) => {
     const { posts_id } = req.params;
     try {
