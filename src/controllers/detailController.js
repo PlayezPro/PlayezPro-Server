@@ -1,7 +1,12 @@
 import { DetailUser } from "../models/detail.js"
-
+import { memory } from "../middlewares/uploadMedia.js";
+import { initializeApp } from "firebase/app";
+import config from "../firebase/firebase.js"
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 //metodos
+initializeApp(config.firebaseConfig);
+const storage = getStorage();
 const createDetails = async (req, res) => {
     try {
         const newDetailUser = new DetailUser(req.body);
@@ -29,6 +34,40 @@ const updateDetails = async (req, res) => {
         res.status(400).send(error);
     }
 };
+export const addProfileImg = async (req, res) => {
+    const userId = req.params.id;
+  
+    try {
+      await memory.single('imagen')(req, res, async (err) => {
+        if (err) {
+          console.error('Error al cargar el archivo en memoria:', err);
+          return res.status(500).json({ message: 'Error al cargar el archivo en memoria' });
+        }
+  
+        const fileBuffer = req.file.buffer;
+        const tempFileRef = ref(storage, `perfil/${req.file.originalname}`);
+  
+        await uploadBytes(tempFileRef, fileBuffer);
+        const tempFileDownloadUrl = await getDownloadURL(tempFileRef);
+        
+        // Actualizar el campo photo sin importar si ya existe
+        const user = await DetailUser.findByIdAndUpdate(
+          userId,
+          { $set: { photo: tempFileDownloadUrl } },
+          { new: true, runValidators: true, context: 'query' }
+        );
+  
+        if (!user) {
+          return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+  
+        return res.status(200).json({ message: 'Usuario actualizado exitosamente', user });
+      });
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error);
+      return res.status(500).json({ message: 'Error al actualizar el usuario' });
+    }
+  };
 
 const deleteDetails = async (req, res) => {
     try {

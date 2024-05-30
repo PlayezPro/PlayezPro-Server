@@ -56,7 +56,6 @@ export const checkIsLiked = async (req, res) => {
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };
-
 export const totalLikes = async (req, res) => {
     const { posts_id } = req.params;
     try {
