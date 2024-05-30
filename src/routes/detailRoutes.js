@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/', createDetails);
 router.get('/',  getAllDetails);
-router.get('/:id', getDetailById);
+router.get('/:userId', getDetailById);
 router.put('/:id', updateDetails);
 router.put('/profile/:id', addProfileImg);
 router.delete('/:id', deleteDetails);
