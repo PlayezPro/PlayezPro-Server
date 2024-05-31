@@ -81,8 +81,9 @@ const deleteDetails = async (req, res) => {
 export { createDetails, getAllDetails, updateDetails, deleteDetails };
 
 const getDetailById = async (req, res) => {
+    const id = req.params.userId
     try {
-        const detail = await DetailUser.findById(req.params.id);
+        const detail = await DetailUser.findOne({userId:id});
         if (!detail) {
             return res.status(404).send("Detalle no encontrado");
         }
