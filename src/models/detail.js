@@ -7,7 +7,7 @@ const detailUserSchema = mongoose.Schema({
         required: true,
     },
     photo:{type: String},
-    birthYear:{type: Number, required: true},
+    birthYear:{type: Date, required: true},
     nationality:{type: String, required: true},
     currentTeam:{type: String, required: true},
     dorsal:{type: Number, required: true},
