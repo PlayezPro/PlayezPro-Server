@@ -1,24 +1,57 @@
 import likesModels from "../models/likes.js";
+import notificationModel from "../models/notification.js";
+import postModel from "../models/post.js"; // Asegúrate de tener este modelo
+
 
 export const createLike = async (req, res) => {
     const { posts_id, users_id } = req.body;
     try {
-        // Comprobar si ya existe un like para este usuario y este post
+        console.log('Recibida solicitud para crear like:', { posts_id, users_id });
+        
         const existingLike = await likesModels.findOne({ posts_id, users_id });
         if (existingLike) {
             return res.status(400).json({ error: 'El usuario ya ha dado like a este post' });
         }
 
-        // Crear el nuevo like
         const newLike = new likesModels({ posts_id, users_id, isLiked: true });
         await newLike.save();
+        console.log('Nuevo like guardado en la base de datos:', newLike);
 
-        // Incrementar el contador de likes en el post
-        // await postModel.findByIdAndUpdate(posts_id, { $inc: { likesCount: 1 } });
+        // Crear la notificación
+        const post = await postModel.findById(posts_id).populate('author');
+        if (!post) {
+            console.error('Post no encontrado');
+            return res.status(404).json({ error: 'Post no encontrado' });
+        }
+        console.log('Post encontrado:', post);
+
+        const notificationMessage = `El usuario ${users_id} le dio like a tu post.`;
+        const newNotification = new notificationModel({
+            recipient: post.author._id,
+            post: posts_id,
+            sender: users_id,
+            message: notificationMessage
+        });
+
+        console.log('Nueva Notificación:', newNotification);
+
+        await newNotification.save();
+        console.log('Notificación guardada en la base de datos:', newNotification);
 
         return res.status(200).json({ message: 'Like añadido correctamente', newLike });
     } catch (error) {
         console.error('Error al crear el like:', error);
+        return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
+    }
+};
+
+export const getUserNotifications = async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const notifications = await Notification.find({ recipient: userId }).sort({ createdAt: -1 });
+        return res.status(200).json(notifications);
+    } catch (error) {
+        console.error('Error al obtener las notificaciones:', error);
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };

@@ -13,6 +13,7 @@ import cors from 'cors'
 import commentRouter from "../src/routes/commentRoutes.js";
 import likeRouter from "./routes/likesRoutes.js";
 import followRouter from "./routes/followRoutes.js";
+import notificationRouter from "./routes/notificationRoutes.js";
 // import corsMiddleware from "./middlewares/corsMiddleware.js";
 
 
@@ -31,8 +32,9 @@ app.use('/statistics', statisticsRoutes)
 app.use('/details', detailRoutes)
 app.use('/share', shareRouter);
 app.use('/comment', commentRouter);
-app.use('/likes',likeRouter)
-app.use('/follow', followRouter)
+app.use('/likes',likeRouter);
+app.use('/follow', followRouter);
+app.use('/notifications', notificationRouter);
 
 
 app.get('/', (req, res) => {
