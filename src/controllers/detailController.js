@@ -43,6 +43,11 @@ export const addProfileImg = async (req, res) => {
           console.error('Error al cargar el archivo en memoria:', err);
           return res.status(500).json({ message: 'Error al cargar el archivo en memoria' });
         }
+        const file = req.file;
+        const maxSize = 2 * 1024 * 1024; // 20MB
+        if (file.size > maxSize) {
+          return res.status(400).send('El archivo no debe superar los 2MB');
+        }
   
         const fileBuffer = req.file.buffer;
         const tempFileRef = ref(storage, `perfil/${req.file.originalname}`);

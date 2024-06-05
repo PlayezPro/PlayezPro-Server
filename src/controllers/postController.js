@@ -2,7 +2,7 @@ import postModel from "../models/post.js";
 import config from "../firebase/firebase.js"
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { memory } from "../middlewares/uploadMedia.js";
+// import { memory } from "../middlewares/uploadMedia.js";
 import * as Handbrake from 'handbrake-js';
 import fs from 'fs';
 import os from 'os';
@@ -32,11 +32,6 @@ const storage = getStorage();
 // Función para crear un post
 export const createPost = async (req, res) => {
     try {
-        await memory.single('file')(req, res, async (err) => {
-            if (err) {
-                console.error('Error al cargar el archivo en memoria:', err);
-                return res.status(500).json({ message: 'Error al cargar el archivo en memoria' });
-            }
 
             const fileBuffer = req.file.buffer;
 
@@ -84,8 +79,7 @@ export const createPost = async (req, res) => {
                     console.error('Error al redimensionar el video:', err);
                     return res.status(500).json({ message: 'Error al redimensionar el video' });
                 });
-        });
-    } catch (error) {
+          } catch (error) {
         console.error('Error al crear el post:', error);
         return res.status(500).json({ message: 'Error al crear el post' });
     }
