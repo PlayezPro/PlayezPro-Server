@@ -7,6 +7,7 @@ import * as Handbrake from 'handbrake-js';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
 
 
 export const getLastPosts = async(req,res)=> {
@@ -18,44 +19,17 @@ export const getLastPosts = async(req,res)=> {
     }
 }
 
+function getRandomFileName(originalName) {
+    const extension = originalName.split('.').pop(); // Obtener la extensión del archivo
+    const randomName = uuidv4(); // Generar un UUID
+    return `${randomName}.${extension}`; // Combinarlo con la extensión original
+}
+
+// Inicializar Firebase
 initializeApp(config.firebaseConfig);
 const storage = getStorage();
 
-// export const createPost = async(req,res)=> {
-//     try {
-//         await memory.single('file')(req,res, async (err)=> {
-//             if(err){
-//                 console.error('Error al cargar el archivo en memoria:', err);
-//                 return res.status(500).json({ message: 'Error al cargar el archivo en memoria' });
-//             }
-
-//             const fileBuffer = req.file.buffer;
-//             console.log(req.file);
-            
-
-//             const tempFileRef = ref(storage,  `media/${req.file.originalname}`);
-
-//             await uploadBytes(tempFileRef,fileBuffer)
-
-//             const tempFileDownloadUrl = await getDownloadURL(tempFileRef);
-
-//             const {users_id,title,description,date,category} =req.body;
-//             const newPost = new postModel({
-//                 users_id: users_id,
-//                 file: tempFileDownloadUrl, // Guardar la URL del archivo temporal en la base de datos
-//                 title: title,
-//                 description: description,
-//                 category: category,
-//             }); 
-
-//             await newPost.save();
-//             return res.status(200).json({ message: 'Post creado correctamente', newPost });
-//         })
-//     } catch(error) {
-//         console.error('Error al crear el post:', error);
-//         return res.status(500).json({ message: 'Error al crear el post' });
-//     }
-// }
+// Función para crear un post
 export const createPost = async (req, res) => {
     try {
         await memory.single('file')(req, res, async (err) => {
@@ -82,8 +56,11 @@ export const createPost = async (req, res) => {
 
             Handbrake.run(handbrakeOptions)
                 .then(async () => {
+                    // Generar un nombre de archivo aleatorio
+                    const randomFileName = getRandomFileName(req.file.originalname);
+
                     // Subir el video redimensionado a Firebase Storage
-                    const tempFileRef = ref(storage, `media/${req.file.originalname}`);
+                    const tempFileRef = ref(storage, `media/${randomFileName}`);
                     const tempFileBuffer = fs.readFileSync(outputFilePath);
                     await uploadBytes(tempFileRef, tempFileBuffer);
 
@@ -92,7 +69,7 @@ export const createPost = async (req, res) => {
                     const { users_id, title, description, date, category } = req.body;
                     const newPost = new postModel({
                         users_id: users_id,
-                        file: tempFileDownloadUrl, // Guardar la URL del archivo temporal en la base de datos
+                        file: tempFileDownloadUrl, // Guardar la URL del archivo en la base de datos
                         title: title,
                         description: description,
                         category: category,
@@ -113,6 +90,13 @@ export const createPost = async (req, res) => {
         return res.status(500).json({ message: 'Error al crear el post' });
     }
 };
+
+
+
+
+
+
+
 export const deletePost = async ( req,res) => {
     const id = req.params.id
     try {
