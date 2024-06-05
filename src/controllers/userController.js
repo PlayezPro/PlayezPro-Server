@@ -1,5 +1,6 @@
 import { Users } from "../models/user.js";
 
+
 // Metodos para el CRUD
 
 //Mostrar todos los registros
@@ -83,9 +84,6 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ message: "Internal server error", error });
     }
 };
-
-
-
 //Eliminar un registro
 
 

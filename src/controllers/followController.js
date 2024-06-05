@@ -21,3 +21,19 @@ export const addRelation = async (req, res) => {
     }
 };
 
+export const checkRelation = async (req,res) =>{
+    const {userfollow,userfollower} = req.body
+    try {
+        console.log(req.body)
+        const relation = await followModel.findOne({userfollow,userfollower});
+        if(!relation){
+            return res.status(200).json({ inRelation: false });
+        }else {
+            return res.status(200).json({inRelation: relation.isRelation})
+        }
+    } catch (error) {
+        console.error('Error al verificar la relacion:', error);
+        return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
+    }
+}
+
