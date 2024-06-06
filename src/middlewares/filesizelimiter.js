@@ -34,7 +34,7 @@ const videoLimiter = async (req, res, next) => {
        // Verificar el tamaño del archivo
        const maxSize = 10 * 1024 * 1024; // 20MB
        if (file.size > maxSize) {
-         return res.status(400).json({ message: 'El archivo no debe superar los 10MB' });
+         return res.status(400).json({ message: 'El archivo no debe superar los 20MB' });
        }
        // Si todo está bien, continuar con el siguiente middleware
        next();
