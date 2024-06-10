@@ -6,6 +6,8 @@ import { limiter } from "../middlewares/rateLimite.js";
 const router = Router()
 
 router.post('/signup', checkDuplicateUsernameorEmail, singUp)
-router.post('/signin', limiter, signIn)
+router.post('/signin', 
+// limiter, 
+signIn)
 
 export default router
