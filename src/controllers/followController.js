@@ -24,7 +24,7 @@ export const addRelation = async (req, res) => {
 export const checkRelation = async (req,res) =>{
     const {userfollow,userfollower} = req.body
     try {
-        console.log(req.body)
+        
         const relation = await followModel.findOne({userfollow,userfollower});
         if(!relation){
             return res.status(200).json({ inRelation: false });
@@ -37,3 +37,15 @@ export const checkRelation = async (req,res) =>{
     }
 }
 
+export const deleteRelation = async (req,res) =>{
+        const {userfollow,userfollower} = req.body
+        try {
+            const blockRelation = await followModel.findOneAndDelete({userfollow,userfollower})
+            if (!blockRelation) {
+                return res.status(400).json({ error: 'No existe relación' });
+            }
+            return res.status(200).json({ message: 'Relación eliminado correctamente' });
+        } catch (error) {
+            return res.status(500).json({ error: 'No se pudo eliminar la relación' });
+        }    
+}
