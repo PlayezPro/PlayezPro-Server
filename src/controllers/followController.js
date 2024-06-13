@@ -36,4 +36,15 @@ export const checkRelation = async (req,res) =>{
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 }
-
+export const deleteRelation = async (req,res) =>{
+    const {userfollow,userfollower} = req.body
+    try {
+        const blockRelation = await followModel.findOneAndDelete({userfollow,userfollower})
+        if (!blockRelation) {
+            return res.status(400).json({ error: 'No existe relación' });
+        }
+        return res.status(200).json({ message: 'Relación eliminado correctamente' });
+    } catch (error) {
+        return res.status(500).json({ error: 'No se pudo eliminar la relación' });
+    }    
+}
