@@ -1,28 +1,47 @@
-# Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.1.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 # PlayezPro-Server
+
+Este proyecto contiene el servidor backend para la aplicación PlayezPro.
+El código del cliente de PlayezPro está disponible en https://github.com/PlayezPro/PlayezPro-Client
+
+## Instalación
+
+Para configurar y ejecutar el servidor localmente, sigue estos pasos:
+
+### Clonar el repositorio
+
+```bash
+git clone https://github.com/PlayezPro/PlayezPro-Server.git
+```
+
+### Instalar dependencias
+Asegúrate de tener Node.js y npm instalados. Luego, instala las dependencias del proyecto:
+```bash
+npm install
+```
+
+### Ejecutar el servidor
+```bash
+npm start
+```
+El servidor estará disponible en http://localhost:3000.
+
+## Tech Stack :cd:
+El sercidor de nuestra aplicación utiliza:
+
+**Lenguage:** ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![TS](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![JAVASCRIPT](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+
+**Server:** ![NPM](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white) ![Node](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)![Express](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+
+**Testing:** ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white) ![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
+## Desarrolladores :trophy:
+
+- :man_technologist: [@Mayonesio](https://github.com/Mayonesio) como Scrum Master
+
+- :woman_technologist: [@DenaRi97](https://github.com/DenaRi97) como Product Owner
+
+- :man_technologist: [@eduardof5sg](https://github.com/eduardof5sg)
+
+- :man_technologist: [@AlexisJhar](https://github.com/AlexisJhar)
+
+- :man_technologist: [@JeanCarlosPerez](https://github.com/JeanCarlosPerez)
