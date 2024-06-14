@@ -47,7 +47,7 @@ export const singUp = async (req, res) => {
         console.log(savedUser);
 
         // Generate a JWT token for the new user
-        const token = Jwt.sign({ id: savedUser._id }, privateKey, { expiresIn: 86400 });
+        const token = Jwt.sign({ id: savedUser._id }, privateKey, { algorithm: 'RS256', expiresIn: 86400 });
 
         // Send the token in the response
         res.status(200).json({ token });
