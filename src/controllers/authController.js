@@ -1,11 +1,8 @@
 import { Users } from "../models/user.js";
 import Jwt from "jsonwebtoken";
 import { Roles } from '../models/roles.js';
-import dotenv from 'dotenv';
+import { privateKey } from "../libs/keypair.js";
 
-dotenv.config();
-
-const SECRET = process.env.JWT_SECRET;
 
 // Controller function for user signup
 export const singUp = async (req, res) => {
@@ -50,7 +47,7 @@ export const singUp = async (req, res) => {
         console.log(savedUser);
 
         // Generate a JWT token for the new user
-        const token = Jwt.sign({ id: savedUser._id }, SECRET, { expiresIn: 86400 });
+        const token = Jwt.sign({ id: savedUser._id }, privateKey, { expiresIn: 86400 });
 
         // Send the token in the response
         res.status(200).json({ token });
@@ -77,7 +74,7 @@ export const signIn = async (req, res) => {
         const roles = userFound.roles;
 
         // Generate a JWT token for the user
-        const token = Jwt.sign({ id: userFound._id, roles: userFound.roles }, SECRET, { expiresIn: 86400 });
+        const token = Jwt.sign({ id: userFound._id, roles: userFound.roles }, privateKey, { expiresIn: 86400 });
 
         // Set the token in the response header
         res.header('Authorization', 'Bearer '+ token);

@@ -1,11 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Users } from '../models/user.js'
 import { Roles } from '../models/roles.js'
-import dotenv from 'dotenv'
-
-dotenv.config();
-
-const SECRET = process.env.JWT_SECRET;
+import { publicKey } from "../libs/keypair.js";
 
 
 export const verifyToken = async (req, res, next) => {
@@ -14,7 +10,7 @@ export const verifyToken = async (req, res, next) => {
 
     if (!token) return res.status(403).json({ message: "No Token Provided" });
 
-    const decoded = jwt.verify(token, SECRET);
+    const decoded = jwt.verify(token, publicKey);
     req.userId = decoded.id;
 
     const user = await Users.findById(req.userId, { password: 0 });
