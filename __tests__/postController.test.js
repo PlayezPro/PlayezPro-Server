@@ -10,78 +10,78 @@ jest.mock('firebase/storage');
 
 // Test para traer todos los posts
 
-// describe('getLastPosts', () => {
-//     let req, res;
+describe('getLastPosts', () => {
+    let req, res;
 
-//     beforeEach(() => {
-//         req = {}; // Simulación del objeto req
-//         res = {
-//             status: jest.fn().mockReturnThis(), // Mockea el método status
-//             json: jest.fn() // Mockea el método json
-//         };
-//     });
+    beforeEach(() => {
+        req = {}; // Simulación del objeto req
+        res = {
+            status: jest.fn().mockReturnThis(), // Mockea el método status
+            json: jest.fn() // Mockea el método json
+        };
+    });
 
-//     it('should return the last posts with status 200', async () => {
-//         const mockPosts = [
-//             { _id: '1', title: 'First Post' },
-//             { _id: '2', title: 'Second Post' }
-//         ];
+    it('should return the last posts with status 200', async () => {
+        const mockPosts = [
+            { _id: '1', title: 'First Post' },
+            { _id: '2', title: 'Second Post' }
+        ];
 
-//         postModel.find.mockResolvedValueOnce(mockPosts); // Simula la respuesta de postModel.find
+        postModel.find.mockResolvedValueOnce(mockPosts); // Simula la respuesta de postModel.find
 
-//         await getLastPosts(req, res); // Llama a la función
+        await getLastPosts(req, res); // Llama a la función
 
-//         expect(res.status).toHaveBeenCalledWith(200); // Verifica que se llamó a res.status con 200
-//         expect(res.json).toHaveBeenCalledWith(mockPosts); // Verifica que se llamó a res.json con los posts simulados
-//     });
+        expect(res.status).toHaveBeenCalledWith(200); // Verifica que se llamó a res.status con 200
+        expect(res.json).toHaveBeenCalledWith(mockPosts); // Verifica que se llamó a res.json con los posts simulados
+    });
 
-//     it('should return an error with status 500 if there is an error', async () => {
-//         postModel.find.mockRejectedValueOnce(new Error('Database error')); // Simula un error en postModel.find
+    it('should return an error with status 500 if there is an error', async () => {
+        postModel.find.mockRejectedValueOnce(new Error('Database error')); // Simula un error en postModel.find
 
-//         await getLastPosts(req, res); // Llama a la función
+        await getLastPosts(req, res); // Llama a la función
 
-//         expect(res.status).toHaveBeenCalledWith(500); // Verifica que se llamó a res.status con 500
-//         expect(res.json).toHaveBeenCalledWith({ message: 'Error al obtener el ultimo post' }); // Verifica que se llamó a res.json con el mensaje de error
-//     });
-// });
+        expect(res.status).toHaveBeenCalledWith(500); // Verifica que se llamó a res.status con 500
+        expect(res.json).toHaveBeenCalledWith({ message: 'Error al obtener el ultimo post' }); // Verifica que se llamó a res.json con el mensaje de error
+    });
+});
 
 // Fin del test de traer todos  los posts
 
 // Test para crear un post 
 
-// describe('postModel', () => {
-//     it('should save a new post correctly', async () => {
-//         // Simular la URL de descarga de un archivo guardado
-//         const mockDownloadUrl = 'https://example.com/mock-download-url';
+describe('postModel', () => {
+    it('should save a new post correctly', async () => {
+        // Simular la URL de descarga de un archivo guardado
+        const mockDownloadUrl = 'https://example.com/mock-download-url';
 
-//         // Datos simulados del nuevo post
-//         const postData = {
-//             users_id: 'mockUserId',
-//             title: 'Mock Video Title',
-//             description: 'Mock Video Description',
-//             category: 'Mock Category',
-//             file: mockDownloadUrl, // Asignamos la URL simulada al campo file
-//         };
+        // Datos simulados del nuevo post
+        const postData = {
+            users_id: 'mockUserId',
+            title: 'Mock Video Title',
+            description: 'Mock Video Description',
+            category: 'Mock Category',
+            file: mockDownloadUrl, // Asignamos la URL simulada al campo file
+        };
 
-//         // Simulamos el método save del modelo postModel
-//         postModel.prototype.save = jest.fn().mockResolvedValue({
-//             _id: 'mockId',
-//             ...postData, // Añadimos los datos simulados al resultado mockeado
-//         });
+        // Simulamos el método save del modelo postModel
+        postModel.prototype.save = jest.fn().mockResolvedValue({
+            _id: 'mockId',
+            ...postData, // Añadimos los datos simulados al resultado mockeado
+        });
 
-//         // Llamamos directamente al método save con los datos simulados
-//         const savedPost = await postModel.prototype.save();
+        // Llamamos directamente al método save con los datos simulados
+        const savedPost = await postModel.prototype.save();
 
-//         // Verificamos que el método save haya sido llamado correctamente
-//         expect(postModel.prototype.save).toHaveBeenCalled();
+        // Verificamos que el método save haya sido llamado correctamente
+        expect(postModel.prototype.save).toHaveBeenCalled();
 
-//         // Verificamos que el resultado de save contenga los datos esperados
-//         expect(savedPost).toMatchObject({
-//             _id: expect.any(String),
-//             ...postData, // Verifica que los datos guardados sean los esperados
-//         });
-//     });
-// });
+        // Verificamos que el resultado de save contenga los datos esperados
+        expect(savedPost).toMatchObject({
+            _id: expect.any(String),
+            ...postData, // Verifica que los datos guardados sean los esperados
+        });
+    });
+});
 // Fin del test para crear un post
 
 

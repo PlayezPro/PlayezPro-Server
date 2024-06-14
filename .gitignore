@@ -41,3 +41,9 @@ Thumbs.db
 
 # Env files
 .env
+
+# Test Folders
+# Test Folders
+/__mocks__
+/__tests__
+/sum.js

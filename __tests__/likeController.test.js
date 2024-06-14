@@ -32,17 +32,17 @@ describe('Create Like', () => {
     expect(res.json).toHaveBeenCalledWith({ error: 'El usuario ya ha dado like a este post' });
   });
 
-//   it('should continue if the user has not liked the post yet', async () => {
-//     // Simula que no existe ningún like para el usuario y el post proporcionados
-//     jest.spyOn(likesModels, 'findOne').mockResolvedValueOnce(null);
+  it('should continue if the user has not liked the post yet', async () => {
+    // Simula que no existe ningún like para el usuario y el post proporcionados
+    jest.spyOn(likesModels, 'findOne').mockResolvedValueOnce(null);
 
-//     // También puedes simular otras funciones como newLike.save() y newNotification.save() si lo deseas
+    // También puedes simular otras funciones como newLike.save() y newNotification.save() si lo deseas
 
-//     await createLike(req, res);
+    await createLike(req, res);
 
-//     expect(res.status).toHaveBeenCalledWith(200);
-//     expect(res.json).toHaveBeenCalledWith({ message: 'Like añadido correctamente', newLike: expect.any(Object) });
-//   });
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Like añadido correctamente', newLike: expect.any(Object) });
+  });
 
   it('should return a 500 status if an error occurs', async () => {
     // Simula que ocurre un error
