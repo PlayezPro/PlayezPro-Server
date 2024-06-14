@@ -80,7 +80,7 @@ export const signIn = async (req, res) => {
         const token = Jwt.sign({ id: userFound._id, roles: userFound.roles }, SECRET, { expiresIn: 86400 });
 
         // Set the token in the response header
-        res.header("access", token);
+        res.header('Authorization', 'Bearer '+ token);
 
         // Send the token and roles in the response
         res.json({ token, roles });
