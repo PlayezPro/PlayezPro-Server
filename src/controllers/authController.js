@@ -74,7 +74,7 @@ export const signIn = async (req, res) => {
         const roles = userFound.roles;
 
         // Generate a JWT token for the user
-        const token = Jwt.sign({ id: userFound._id, roles: userFound.roles }, privateKey, { expiresIn: 86400 });
+        const token = Jwt.sign({ id: userFound._id, roles: userFound.roles }, privateKey, { algorithm: 'RS256', expiresIn: 86400 });
 
         // Set the token in the response header
         res.header('Authorization', 'Bearer '+ token);
