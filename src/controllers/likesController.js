@@ -38,7 +38,7 @@ export const createLike = async (req, res) => {
         await newNotification.save();
         console.log('Notificación guardada en la base de datos:', newNotification);
 
-        return res.status(200).json({ message: 'Like añadido correctamente', newLike });
+        return res.status(200).json({ message: 'Like añadido correctamente'});
     } catch (error) {
         console.error('Error al crear el like:', error);
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
