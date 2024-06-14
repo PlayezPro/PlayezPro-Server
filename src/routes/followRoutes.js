@@ -3,8 +3,6 @@ import { addRelation } from "../controllers/followController.js"
 import { checkRelation } from '../controllers/followController.js';
 import { deleteRelation } from "../controllers/followController.js";
 
-import { deleteRelation } from "../controllers/followController.js";
-
 const followRouter = express.Router();
 
 followRouter.post('/', addRelation);
