@@ -24,7 +24,7 @@ export const addRelation = async (req, res) => {
 export const checkRelation = async (req,res) =>{
     const {userfollow,userfollower} = req.body
     try {
-        console.log(req.body)
+        
         const relation = await followModel.findOne({userfollow,userfollower});
         if(!relation){
             return res.status(200).json({ inRelation: false });
