@@ -4,7 +4,8 @@ import postModel from "../models/post.js"; // Asegúrate de tener este modelo
 
 
 export const createLike = async (req, res) => {
-    const { posts_id, users_id } = req.body;
+    const { posts_id} = req.body;
+    const users_id = req.userId
     try {
         console.log('Recibida solicitud para crear like:', { posts_id, users_id });
         
@@ -57,7 +58,8 @@ export const getUserNotifications = async (req, res) => {
 };
 
 export const removeLike = async (req, res) => {
-    const { posts_id, users_id } = req.body;
+    const { posts_id } = req.body;
+    const users_id = req.userId
     try {
         // Buscar y eliminar el like
         const deletedLike = await likesModels.findOneAndDelete({ posts_id, users_id });
@@ -76,7 +78,8 @@ export const removeLike = async (req, res) => {
 };
 
 export const checkIsLiked = async (req, res) => {
-    const { posts_id, users_id } = req.body;
+    const { posts_id } = req.body;
+    const users_id = req.userId
     try {
         // Buscar el like correspondiente
         const like = await likesModels.findOne({ posts_id, users_id });

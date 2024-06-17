@@ -2,8 +2,8 @@ import commentsModel from "../models/comment.js";
 import postsModel from '../models/post.js'; 
 
 export const createComment = async (req, res) => {
-    const { posts_id, users_id, comments } = req.body; // Corregí el nombre de la propiedad comments a comment para que coincida con lo que se espera
-
+    const { posts_id, comments } = req.body; // Corregí el nombre de la propiedad comments a comment para que coincida con lo que se espera
+    const users_id=req.userId
     try {
         // Crear un nuevo comentario
         const newComment = new commentsModel({
