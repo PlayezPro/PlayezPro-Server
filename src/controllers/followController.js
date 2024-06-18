@@ -4,8 +4,8 @@ import followModel from '../models/follow.js';
 export const addRelation = async (req, res) => {
     try {
         // Extraer los IDs de los usuarios que están siguiendo y siendo seguidos del cuerpo de la solicitud
-        const { userfollow, userfollower } = req.body;
-
+        const { userfollow,  } = req.body;
+        const userfollower = req.userId
         // Crear una nueva instancia de la relación de usuarios con los IDs proporcionados
         const newRelation = new followModel({ userfollow, userfollower });
 
