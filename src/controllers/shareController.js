@@ -20,9 +20,9 @@ export const sharedPost = async (req, res) => {
         // Incrementar el contador de likes en el post
         await PostModel.findByIdAndUpdate(posts_id, { $inc: { shareCount: 1 } });
 
-        return res.status(200).json({ message: 'Shared', newShare });
+        return res.status(200).json({ message: 'Shared'});
     } catch (error) {
-        console.error('Sharing error:', error);
+        console.error('Sharing error:');
         return res.status(500).json({ error: 'Link sharing error' });
     }
 };

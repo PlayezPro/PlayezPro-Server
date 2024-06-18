@@ -13,9 +13,9 @@ export const createSkill = async (req, res) =>{
             physical:physical,
         })
         await skill.save()
-        res.status(201).json({message:"Skill Registered", skill})
+        res.status(201).json({message:"Skill Registered"})
     } catch (error) {
-        res.status(500).json({message:"not found", error})  
+        res.status(500).json({message:"not found"})  
     }
 }
 
@@ -24,7 +24,7 @@ export const getSkill = async (req, res) => {
         const skill = await Skill.find()
         res.status(200).json(skill)
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }
 
@@ -34,7 +34,7 @@ export const getOneSkill = async (req, res) => {
         const skill = await Skill.find({users_id:id})
         res.status(200).json(skill)
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }
 
@@ -42,9 +42,9 @@ export const deleteSkill = async (req, res) => {
     const id = req.params.id
     try {
         await Skill.deleteOne({_id:id},req.body) 
-        res.status(200).json({message:"Skill deleted correctly", id})
+        res.status(200).json({message:"Skill deleted correctly"})
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }
 
@@ -52,8 +52,8 @@ export const updateSkill = async (req, res) => {
     const id = req.params.id
     try {
         await Skill.updateOne({_id:id},req.body) 
-        res.status(200).json({message:"Skill modified correctly", id})
+        res.status(200).json({message:"Skill modified correctly"})
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }

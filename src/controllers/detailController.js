@@ -40,7 +40,7 @@ export const addProfileImg = async (req, res) => {
     try {
       await memory.single('imagen')(req, res, async (err) => {
         if (err) {
-          console.error('Error al cargar el archivo en memoria:', err);
+          console.error('Error al cargar el archivo en memoria:');
           return res.status(500).json({ message: 'Error al cargar el archivo en memoria' });
         }
         const file = req.file;
@@ -66,7 +66,7 @@ export const addProfileImg = async (req, res) => {
           return res.status(404).json({ message: 'Usuario no encontrado' });
         }
   
-        return res.status(200).json({ message: 'Usuario actualizado exitosamente', user });
+        return res.status(200).json({ message: 'Usuario actualizado exitosamente' });
       });
     } catch (error) {
       console.error('Error al actualizar el usuario:', error);

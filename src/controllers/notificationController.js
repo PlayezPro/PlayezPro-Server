@@ -7,7 +7,7 @@ export const createNotification = async (req, res) => {
         await newNotification.save();
         return res.status(200).json({ message: 'Notificación creada correctamente', newNotification });
     } catch (error) {
-        console.error('Error al crear la notificación:', error);
+        console.error('Error al crear la notificación:');
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };
@@ -21,7 +21,7 @@ export const deleteNotification = async (req, res) => {
         }
         return res.status(200).json({ message: 'Notificación eliminada correctamente' });
     } catch (error) {
-        console.error('Error al eliminar la notificación:', error);
+        console.error('Error al eliminar la notificación:');
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };
@@ -32,7 +32,7 @@ export const getUserNotifications = async (req, res) => {
         const notifications = await notificationModel.find({ recipient: userId }).sort({ createdAt: -1 });
         return res.status(200).json({ notifications });
     } catch (error) {
-        console.error('Error al obtener las notificaciones:', error);
+        console.error('Error al obtener las notificaciones:');
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };
@@ -44,9 +44,9 @@ export const markAsRead = async (req, res) => {
         if (!notification) {
             return res.status(400).json({ error: 'No se encontró la notificación' });
         }
-        return res.status(200).json({ message: 'Notificación marcada como leída', notification });
+        return res.status(200).json({ message: 'Notificación marcada como leída'});
     } catch (error) {
-        console.error('Error al marcar la notificación como leída:', error);
+        console.error('Error al marcar la notificación como leída:');
         return res.status(500).json({ error: 'Hubo un error al procesar la solicitud' });
     }
 };

@@ -10,7 +10,7 @@ export const getAllUser =  async (req, res) => {
         const users = await Users.find()
         res.json(users)
     } catch (error) {
-        res.json({message: error.message})
+        res.json({message: 'error al obtener todos los usuarios'})
     }
 }
 
@@ -23,7 +23,7 @@ export const getOneUser = async (req, res) => {
         const users = await Users.find({_id:id})
         res.status(200).json(users)
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }
 
@@ -32,9 +32,9 @@ export const getOneUser = async (req, res) => {
 export const createUser = async (req, res) => {
     try {
         const user =  await Users.create(req.body)
-        res.status(200).json({message:'Registro creado correctamente', user})
+        res.status(200).json({message:'Registro creado correctamente'})
     } catch (error) {
-        res.json({message:error.message})
+        res.json({message:'Error al crear usuario'})
     }
 }
 
@@ -79,9 +79,9 @@ export const updateUser = async (req, res) => {
         // Actualizar el usuario en la base de datos
         const user = await Users.updateOne({ _id: id }, updatedUserData);
 
-        res.status(200).json({ message: "User successfully updated", user });
+        res.status(200).json({ message: "User successfully updated"});
     } catch (error) {
-        res.status(500).json({ message: "Internal server error", error });
+        res.status(500).json({ message: "Internal server error"});
     }
 };
 //Eliminar un registro
@@ -91,8 +91,8 @@ export const deleteUser = async (req, res) => {
     const id = req.params.id
     try {
         await Users.deleteOne({_id:id},req.body) 
-        res.status(200).json({message:"User Satisfactorily Deleted", id})
+        res.status(200).json({message:"User Satisfactorily Deleted"})
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }

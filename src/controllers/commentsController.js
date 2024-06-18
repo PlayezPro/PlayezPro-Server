@@ -80,7 +80,7 @@ export const updateComment = async (req, res) => {
         res.status(200).json(commentToUpdate);
     } catch (error) {
         // Si hay un error, devolver un mensaje de error
-        res.status(500).json({ message: 'Hubo un error al actualizar el comentario', error: error.message });
+        res.status(500).json({ message: 'Hubo un error al actualizar el comentario'});
     }
 }
 
