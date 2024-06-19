@@ -6,7 +6,6 @@ import postModel from "../models/post.js"; // Asegúrate de tener este modelo
 export const createLike = async (req, res) => {
     const { posts_id, users_id } = req.body;
     try {
-        console.log('Recibida solicitud para crear like:', { posts_id, users_id });
         
         const existingLike = await likesModels.findOne({ posts_id, users_id });
         if (existingLike) {
@@ -15,7 +14,6 @@ export const createLike = async (req, res) => {
 
         const newLike = new likesModels({ posts_id, users_id, isLiked: true });
         await newLike.save();
-        console.log('Nuevo like guardado en la base de datos:');
 
         // Crear la notificación
         const post = await postModel.findById(posts_id).populate('author');
@@ -23,7 +21,6 @@ export const createLike = async (req, res) => {
             console.error('Post no encontrado');
             return res.status(404).json({ error: 'Post no encontrado' });
         }
-        console.log('Post encontrado:', post);
 
         const notificationMessage = `El usuario ${users_id} le dio like a tu post.`;
         const newNotification = new notificationModel({
@@ -33,10 +30,8 @@ export const createLike = async (req, res) => {
             message: notificationMessage
         });
 
-        console.log('Nueva Notificación:');
 
         await newNotification.save();
-        console.log('Notificación guardada en la base de datos:');
 
         return res.status(200).json({ message: 'Like añadido correctamente'});
     } catch (error) {

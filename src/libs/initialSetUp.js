@@ -11,7 +11,6 @@ try {
        new Roles({name: 'player'}).save()
     ])
    
-    console.log(values)
 } catch (error) {
     console.error(error)
 }

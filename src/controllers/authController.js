@@ -16,7 +16,6 @@ export const singUp = async (req, res) => {
         return res.status(400).json({ message: 'Passwords do not match' });
     }
 
-    console.log('Received password:', password);  // Debug log
 
     try {
         // Encrypt the password
@@ -44,7 +43,6 @@ export const singUp = async (req, res) => {
 
         // Save the new user to the database
         const savedUser = await newUser.save();
-        console.log(savedUser);
 
         // Generate a JWT token for the new user
         const token = Jwt.sign({ id: savedUser._id }, privateKey, { algorithm: 'RS256', expiresIn: 86400 });

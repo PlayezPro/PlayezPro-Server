@@ -106,9 +106,7 @@ export const getPostId = async (req,res) => {
 }
 
 export const showUserPosts = async (req, res) => {
-    console.log("Controlador showUserPosts ejecutado");
     const usersId = req.params.users_id;
-    console.log(usersId);
     try {
        const userPosts= await postModel.find({users_id : usersId});
        res.status(200).json(userPosts);
