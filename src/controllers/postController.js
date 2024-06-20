@@ -73,14 +73,14 @@ export const createPost = async (req, res) => {
                     await newPost.save();
                     fs.unlinkSync(tempFilePath); // Eliminar el archivo temporal de entrada
                     fs.unlinkSync(outputFilePath); // Eliminar el archivo temporal de salida
-                    return res.status(200).json({ message: 'Post creado correctamente', newPost });
+                    return res.status(200).json({ message: 'Post creado correctamente'});
                 })
                 .catch((err) => {
                     console.error('Error al redimensionar el video:', err);
                     return res.status(500).json({ message: 'Error al redimensionar el video' });
                 });
           } catch (error) {
-        console.error('Error al crear el post:', error);
+        console.error('Error al crear el post:');
         return res.status(500).json({ message: 'Error al crear el post' });
     }
 };
@@ -89,9 +89,9 @@ export const deletePost = async ( req,res) => {
     const id = req.params.id
     try {
         await postModel.deleteOne({_id:id})
-        res.status(204).json({message: "Post eliminado ",id})
+        res.status(204).json({message: "Post eliminado "})
     } catch (error) {
-        res.status(500).json({message: "Fallo al eliminar el post", error})
+        res.status(500).json({message: "Fallo al eliminar el post"})
     }
 }
 
@@ -101,19 +101,17 @@ export const getPostId = async (req,res) => {
        const onePost= await postModel.findOne({_id:id});
        res.status(200).json(onePost)
     } catch (error) {
-        res.status(500).json({message: "error al mostrar el post",error})
+        res.status(500).json({message: "error al mostrar el post"})
     }
 }
 
 export const showUserPosts = async (req, res) => {
-    console.log("Controlador showUserPosts ejecutado");
     const usersId = req.params.users_id;
-    console.log(usersId);
     try {
        const userPosts= await postModel.find({users_id : usersId});
        res.status(200).json(userPosts);
     } catch (error) {
-     res.status(500).json(error);
+     res.status(500).json({menssage: 'Error al traer post de user'});
     }
 };
 
@@ -125,10 +123,10 @@ export const editBlog = async (req, res) => {
             { _id: postId }, 
             { $set: { title, description, category } }
             );
-        res.status(200).json({message:"datos Modificado Satisfactoriamente", postId})
+        res.status(200).json({message:"datos Modificado Satisfactoriamente"})
 
     } catch (error) {
-        console.error('Error al actualizar el blog', error);
+        console.error('Error al actualizar el blog');
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
@@ -157,6 +155,6 @@ export const getRankedPosts = async (req, res) => {
 
         res.status(200).json(rankedPosts);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching ranked posts', error });
+        res.status(500).json({ message: 'Error fetching ranked posts'});
     }
 };

@@ -10,9 +10,9 @@ export const createStatistics = async (req, res) =>{
             votes: votes
         })
         await statistics.save()
-        res.status(201).json({message:"Statistics Registereds", statistics})
+        res.status(201).json({message:"Statistics Registereds"})
     } catch (error) {
-        res.status(500).json({message:"not found", error})  
+        res.status(500).json({message:"not found"})  
     }
 }
 
@@ -21,7 +21,7 @@ export const getStatistics = async (req, res) => {
         const statistics = await Statistics.find()
         res.status(200).json(statistics)
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }
 
@@ -31,7 +31,7 @@ export const getOneStatistics = async (req, res) => {
         const statistics = await Statistics.find({_id:id})
         res.status(200).json(statistics)
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }
 
@@ -39,9 +39,9 @@ export const deleteStatistics = async (req, res) => {
     const id = req.params.id
     try {
         await Statistics.deleteOne({_id:id},req.body) 
-        res.status(200).json({message:"Statistic deleted correctly", id})
+        res.status(200).json({message:"Statistic deleted correctly"})
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }
 
@@ -49,8 +49,8 @@ export const updateStatistics = async (req, res) => {
     const id = req.params.id
     try {
         await Statistics.updateOne({_id:id},req.body) 
-        res.status(200).json({message:"Statistic modified correctly", id})
+        res.status(200).json({message:"Statistic modified correctly"})
     } catch (error) {
-        res.status(500).json({message:"not found", error})
+        res.status(500).json({message:"not found"})
     }
 }
